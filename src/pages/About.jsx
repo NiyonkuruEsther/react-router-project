@@ -30,7 +30,7 @@ export default function About() {
             Your van is ready.
           </h2>
           <Link
-            className="text-white bg-black py-4 px-8 text-2xl w-fit font-semibold rounded-md"
+            className="text-white bg-black py-4 px-8 text-xl w-fit font-semibold rounded-md"
             to="/vans"
           >
             Explore our vans

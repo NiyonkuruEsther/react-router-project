@@ -11,6 +11,7 @@ export default {
         cream: "#FFEAD0",
         "light-cream": "#FFF7ED",
         "mid-cream": "#FFCC8D",
+        "red-amber": "#E17654",
       },
     },
   },
