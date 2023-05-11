@@ -10,6 +10,7 @@ export default {
         "blue-green": "#115E59",
         cream: "#FFEAD0",
         "light-cream": "#FFF7ED",
+        "mid-cream": "#FFCC8D",
       },
     },
   },
