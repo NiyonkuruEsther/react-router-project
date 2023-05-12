@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
 import { Link } from "react-router-dom";
 
 const Vans = () => {
@@ -31,17 +29,13 @@ const Vans = () => {
   ));
 
   return (
-    <div className="max-w-3xl mx-auto bg-light-cream flex flex-col gap-12">
-      <Navbar />
-      <div className="px-8 mx-auto flex flex-col gap-12">
-        <h1 className="text-3xl font-bold text-center">
-          Explore our van options
-        </h1>
-        <div className="flex flex-wrap justify-between gap-y-12">
-          {vanElements}
-        </div>
+    <div className="p-8 mx-auto flex flex-col gap-12">
+      <h1 className="text-3xl font-bold text-center">
+        Explore our van options
+      </h1>
+      <div className="flex flex-wrap justify-between gap-y-12">
+        {vanElements}
       </div>
-      <Footer />
     </div>
   );
 };

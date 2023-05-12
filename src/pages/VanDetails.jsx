@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -16,9 +14,7 @@ export default function VanDetails() {
   }, [params.id]);
 
   return (
-    <div className="max-w-3xl mx-auto bg-light-cream">
-      <Navbar />
-
+    <div>
       {van ? (
         <div className="p-8 flex flex-col gap-10">
           <Link
@@ -33,7 +29,7 @@ export default function VanDetails() {
               className={`self-start py-2 px-4 text-md rounded-md ${van.type} font-medium text-cream`}
             >
               {van.type.charAt(0).toUpperCase() + van.type.slice(1)}
-            </button>{" "}
+            </button>
             <h1 className="text-4xl font-bold ">{van.name}</h1>
             <p className="text-2xl">
               <span className="font-bold">${van.price}</span>/day
@@ -47,7 +43,6 @@ export default function VanDetails() {
       ) : (
         <h2 className="p-8 font-bold text-2xl">Loading...</h2>
       )}
-      <Footer />
     </div>
   );
 }
