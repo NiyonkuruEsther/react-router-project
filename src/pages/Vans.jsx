@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import { Link } from "react-router-dom";
 
 const Vans = () => {
   const [vans, setVans] = useState([]);
@@ -12,8 +13,6 @@ const Vans = () => {
 
   const vanElements = vans.map((van) => (
     <div key={van.id} className="flex flex-col -space-y-4 ">
-      {console.log(van.color)}
-
       <img className="max-w-xs rounded-lg mb-8" src={van.imageUrl} />
       <div className="flex justify-between">
         <h3>{van.name}</h3>
@@ -22,11 +21,12 @@ const Vans = () => {
           /day
         </p>
       </div>
-      <button
-        className={`self-start py-2 px-4 text-md rounded-sm ${van.type} font-medium text-cream`}
+      <Link
+        to={`/vans/${parseInt(van.id, 10)}`}
+        className={`self-start py-2 px-4 text-md rounded-md ${van.type} font-medium text-cream`}
       >
         {van.type.charAt(0).toUpperCase() + van.type.slice(1)}
-      </button>
+      </Link>
     </div>
   ));
 
