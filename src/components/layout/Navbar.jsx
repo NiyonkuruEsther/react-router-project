@@ -6,9 +6,12 @@ function Navbar() {
       <Link to="/" className="font-bold text-3xl">
         #VANLIFE
       </Link>
-      <div className="flex justify-between w-1/6 text-lg font-semibold">
+      <div className="flex justify-between w-2/5 text-lg font-semibold">
         <Link to="/about" className="text-opacity-70 text-dark">
           About
+        </Link>
+        <Link to="/host" className="text-opacity-70 text-dark">
+          Host
         </Link>
         <Link to="/vans" className="text-opacity-70 text-dark">
           Vans
