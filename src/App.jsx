@@ -7,18 +7,18 @@ import Layout from "./components/layout/Layout";
 import DashBoard from "./pages/hosts/DashBoard";
 import Income from "./pages/hosts/Income";
 import Reviews from "./pages/hosts/Reviews";
-import HostNav from "./pages/hosts/HostNav";
+import HostLayout from "./components/layout/HostLayout";
 
 export default function App() {
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/vans" element={<Vans />} />
         <Route path="/vans/:id" element={<VanDetails />} />
-        <Route element={<HostNav />}>
-          <Route path="/host" element={<DashBoard />} />
+        <Route path="/host" element={<HostLayout />}>
+          <Route index element={<DashBoard />} />
           <Route path="/host/income" element={<Income />} />
           <Route path="/host/reviews" element={<Reviews />} />
         </Route>
