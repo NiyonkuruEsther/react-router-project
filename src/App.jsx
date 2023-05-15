@@ -8,7 +8,11 @@ import DashBoard from "./pages/hosts/DashBoard";
 import Income from "./pages/hosts/Income";
 import Reviews from "./pages/hosts/Reviews";
 import HostLayout from "./components/layout/HostLayout";
-import VansList from "./pages/hosts/VanList";
+import HostPrice from "./pages/hosts/HostPrice";
+import HostPhoto from "./pages/hosts/HostPhoto";
+import HostVanDetails from "./pages/hosts/HostVanDetails";
+import HostVanList from "./pages/hosts/HostVanList";
+import VanDetail from "./pages/hosts/VanDetail";
 
 export default function App() {
   return (
@@ -22,7 +26,12 @@ export default function App() {
           <Route index element={<DashBoard />} />
           <Route path="income" element={<Income />} />
           <Route path="reviews" element={<Reviews />} />
-          <Route path="vans" element={<VansList />} />
+          <Route path="vans" element={<HostVanList />} />
+          <Route path="vans/:id" element={<HostVanDetails />}>
+            <Route index element={<VanDetail />} />
+            <Route path="pricing" element={<HostPrice />} />
+            <Route path="photos" element={<HostPhoto />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

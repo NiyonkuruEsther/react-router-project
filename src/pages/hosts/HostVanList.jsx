@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function VansList() {
+export default function HostVanList() {
   const [vans, setVans] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function VansList() {
   }, []);
 
   return (
-    <section className="bg-[#FFF7ED] px-5 ">
+    <section className="bg-[#FFF7ED] px-8 ">
       <div className="max-w-6xl mx-auto">
         <div className="">
           <div className="flex justify-between max-w-6xl mx-auto  items-center py-10 ">
