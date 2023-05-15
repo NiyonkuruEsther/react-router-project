@@ -8,6 +8,7 @@ import DashBoard from "./pages/hosts/DashBoard";
 import Income from "./pages/hosts/Income";
 import Reviews from "./pages/hosts/Reviews";
 import HostLayout from "./components/layout/HostLayout";
+import VansList from "./pages/hosts/VanList";
 
 export default function App() {
   return (
@@ -19,8 +20,9 @@ export default function App() {
         <Route path="/vans/:id" element={<VanDetails />} />
         <Route path="/host" element={<HostLayout />}>
           <Route index element={<DashBoard />} />
-          <Route path="/host/income" element={<Income />} />
-          <Route path="/host/reviews" element={<Reviews />} />
+          <Route path="income" element={<Income />} />
+          <Route path="reviews" element={<Reviews />} />
+          <Route path="vans" element={<VansList />} />
         </Route>
       </Route>
     </Routes>

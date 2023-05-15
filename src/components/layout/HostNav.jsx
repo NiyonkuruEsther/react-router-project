@@ -1,24 +1,41 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const HostNav = () => {
   return (
     <div>
       <div className="flex p-8 justify-between w-3/5 text-lg font-semibold">
-        <Link to="/host" className="text-opacity-70 text-dark">
-          Dashboard{" "}
-        </Link>
+        <NavLink
+          end
+          to="/host"
+          className={`text-opacity-70 text-dark ${({ isActive }) =>
+            isActive ? "active" : null}`}
+        >
+          Dashboard
+        </NavLink>
 
-        <Link to="/about" className="text-opacity-70 text-dark">
+        <NavLink
+          to="income"
+          className={`text-opacity-70 text-dark ${({ isActive }) =>
+            isActive ? "active" : null}`}
+        >
           Income{" "}
-        </Link>
+        </NavLink>
 
-        <Link to="/about" className="text-opacity-70 text-dark">
+        <NavLink
+          to="vans"
+          className={`text-opacity-70 text-dark ${({ isActive }) =>
+            isActive ? "active" : null}`}
+        >
           Vans{" "}
-        </Link>
+        </NavLink>
 
-        <Link to="/about" className="text-opacity-70 text-dark">
+        <NavLink
+          to="reviews"
+          className={`text-opacity-70 text-dark ${({ isActive }) =>
+            isActive ? "active" : null}`}
+        >
           Reviews{" "}
-        </Link>
+        </NavLink>
       </div>
     </div>
   );
