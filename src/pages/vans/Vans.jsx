@@ -15,10 +15,17 @@ const Vans = () => {
   const displayedVans = typeFilter
     ? vans.filter((van) => van.type === typeFilter)
     : vans;
-  console.log(displayedVans);
 
   const vanElements = displayedVans.map((van) => (
-    <div key={van.id} className="flex flex-col">
+    <Link
+      to={`/vans/${parseInt(van.id, 10)}`}
+      state={{
+        search: `?${searchParams.toString()}`,
+        type: typeFilter,
+      }}
+      key={van.id}
+      className="flex flex-col"
+    >
       <img className="max-w-xs rounded-lg mb-8" src={van.imageUrl} />
       <div className="flex justify-between">
         <h3>{van.name}</h3>
@@ -27,13 +34,12 @@ const Vans = () => {
           /day
         </p>
       </div>
-      <Link
-        to={`/vans/${parseInt(van.id, 10)}`}
+      <button
         className={`self-start py-2 px-4 text-md rounded-md ${van.type} font-medium text-cream`}
       >
         {van.type.charAt(0).toUpperCase() + van.type.slice(1)}
-      </Link>
-    </div>
+      </button>
+    </Link>
   ));
 
   return (
