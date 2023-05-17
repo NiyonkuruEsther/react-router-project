@@ -5,12 +5,15 @@ import { getVans } from "../../utils/api";
 const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
+  const [loading, setLoading] = useState(false);
 
   const [vans, setVans] = useState([]);
   useEffect(() => {
     async function loadVans() {
+      setLoading(true);
       const data = await getVans();
       setVans(data);
+      setLoading(false);
     }
 
     loadVans();
@@ -45,6 +48,9 @@ const Vans = () => {
       </button>
     </Link>
   ));
+  if (loading) {
+    return <h2 className="p-8 font-bold text-2xl">Loading...</h2>;
+  }
 
   return (
     <div className="p-8 mx-auto flex flex-col gap-12 w-full">
