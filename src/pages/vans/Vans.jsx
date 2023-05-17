@@ -23,7 +23,7 @@ const Vans = () => {
     ? vans.filter((van) => van.type === typeFilter)
     : vans;
 
-  const vanElements = displayedVans.map((van) => (
+  const vanElements = displayedVans?.map((van) => (
     <Link
       to={`/vans/${parseInt(van.id, 10)}`}
       state={{
