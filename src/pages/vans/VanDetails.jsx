@@ -27,7 +27,7 @@ export default function VanDetails() {
           >
             <FaArrowLeft />
             Back to {type} vans
-          </Link> 
+          </Link>
           <img src={van.imageUrl} className="rounded-lg" />
           <div className="flex flex-col gap-4">
             <button
