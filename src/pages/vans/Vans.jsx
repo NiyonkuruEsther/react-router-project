@@ -6,14 +6,20 @@ const Vans = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const typeFilter = searchParams.get("type");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [vans, setVans] = useState([]);
   useEffect(() => {
     async function loadVans() {
       setLoading(true);
-      const data = await getVans();
-      setVans(data);
-      setLoading(false);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadVans();
@@ -48,8 +54,23 @@ const Vans = () => {
       </button>
     </Link>
   ));
+
+  function handleFilterChange(key, value) {
+    setSearchParams((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  }
   if (loading) {
     return <h2 className="p-8 font-bold text-2xl">Loading...</h2>;
+  }
+
+  if (error) {
+    return <h1>There was an error: {error.message}</h1>;
   }
 
   return (
@@ -60,19 +81,19 @@ const Vans = () => {
       <div className="flex justify-between">
         <div className="flex gap-6">
           <button
-            onClick={() => setSearchParams({ type: "simple" })}
+            onClick={() => handleFilterChange("type", "simple")}
             className={`self-start py-2 px-4 text-md rounded-md ${"simple"} font-medium text-cream`}
           >
             Simple
           </button>
           <button
-            onClick={() => setSearchParams({ type: "luxury" })}
+            onClick={() => handleFilterChange("type", "luxury")}
             className={`self-start py-2 px-4 text-md rounded-md ${"luxury"} font-medium text-cream`}
           >
             Luxury
           </button>
           <button
-            onClick={() => setSearchParams({ type: "rugged" })}
+            onClick={() => handleFilterChange("type", "rugged")}
             className={`self-start py-2 px-4 text-md rounded-md ${"rugged"} font-medium text-cream`}
           >
             Rugged
@@ -80,7 +101,7 @@ const Vans = () => {
         </div>
 
         <button
-          onClick={() => setSearchParams({})}
+          onClick={() => handleFilterChange("type", null)}
           className={`underline font-semibold`}
         >
           Clear filter
