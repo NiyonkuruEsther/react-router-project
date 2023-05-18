@@ -2,9 +2,7 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  Routes,
   Route,
-  Link,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -20,10 +18,11 @@ import HostPhoto from "./pages/hosts/HostPhoto";
 import HostVanDetails from "./pages/hosts/HostVanDetails";
 import HostVanList from "./pages/hosts/HostVanList";
 import VanDetail from "./pages/hosts/VanDetail";
+import Error from "./components/ui/Error";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<Layout />} errorElement={<Error />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="vans" element={<Vans />} loader={vansLoader} />
