@@ -15,7 +15,9 @@ import Reviews from "./pages/hosts/Reviews";
 import HostLayout from "./components/layout/HostLayout";
 import HostPrice from "./pages/hosts/HostPrice";
 import HostPhoto from "./pages/hosts/HostPhoto";
-import HostVanDetails from "./pages/hosts/HostVanDetails";
+import HostVanDetails, {
+  loader as hostVanDetailLoader,
+} from "./pages/hosts/HostVanDetails";
 import HostVanList from "./pages/hosts/HostVanList";
 import VanDetail from "./pages/hosts/VanDetail";
 import Error from "./components/ui/Error";
@@ -64,9 +66,7 @@ const router = createBrowserRouter(
           element={<HostVanList />}
         />
         <Route
-          loader={async () => {
-            return null;
-          }}
+          loader={hostVanDetailLoader}
           path="vans/:id"
           element={<HostVanDetails />}
         >

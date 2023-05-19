@@ -4,14 +4,12 @@ import { Link } from "react-router-dom";
 import { getVans } from "../../utils/api";
 
 export function loader({ params }) {
-  console.log(params);
   return getVans(params.id);
 }
 
 export default function VanDetail() {
   const location = useLocation();
   const van = useLoaderData();
-  console.log(van);
   const search = location.state?.search || "";
   const type = location.state?.type || "all";
   console.log(location.state);
