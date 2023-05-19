@@ -1,20 +1,32 @@
 // import { LoginOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { loginUser } from "../utils/api";
 
 export function loader({ request }) {
   return new URL(request.url).searchParams.get("message");
 }
 
 export default function Login() {
-  const [valuess, setValuess] = useState({
-    identifier: "",
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
     password: "",
   });
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState(null);
   const message = useLoaderData();
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    setStatus("submitting");
+    setError(null);
+    loginUser(loginFormData)
+      .then((data) => console.log(data))
+      .catch((err) => setError(err))
+      .finally(() => setStatus("idle"));
+  }
   const handleChange = (e) => {
-    setValuess({ ...valuess, [e.target.name]: e.target.value });
+    setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
   };
   return (
     <div className="h-full flex flex-col justify-center items-center mb-20 mt-10">
@@ -28,8 +40,13 @@ export default function Login() {
               {message}
             </h3>
           )}
+          {error && (
+            <h3 className="text-red-orange text-xl w-fit mx-auto py-3">
+              {error.message}
+            </h3>
+          )}
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col w-full gap-4 ">
             <div className="bg-white pb-1 w-full rounded-3xl h-12 border-2  flex flex-col justify-center items-center">
               <input
@@ -51,11 +68,11 @@ export default function Login() {
             </div>
             <div className="place-self-start gap-5 flex flex-col">
               <button
+                disabled={status === "submitting"}
                 className="submit text-lg px-4 font-bold  text-white w-fit flex justify-center p-2 rounded-full items-center gap-4 bg-orange "
                 type="submit"
               >
-                {/* <LoginOutlined /> */}
-                LOGIN
+                {status === "submitting" ? "Logging in..." : "Log in"}
               </button>
               <span className=" text-opacity-40 text-black">
                 Don&apos;t have an account{" "}
