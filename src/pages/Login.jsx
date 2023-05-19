@@ -1,27 +1,37 @@
 // import { LoginOutlined } from "@mui/icons-material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+
+export function loader({ request }) {
+  return new URL(request.url).searchParams.get("message");
+}
 
 export default function Login() {
   const [valuess, setValuess] = useState({
     identifier: "",
     password: "",
   });
+  const message = useLoaderData();
 
   const handleChange = (e) => {
     setValuess({ ...valuess, [e.target.name]: e.target.value });
   };
   return (
     <div className="h-full flex flex-col justify-center items-center mb-20 mt-10">
-      <div className=" shadow-xl border-4 ring-4 ring-orange  rounded-3xl flex flex-col gap-6 p-6">
+      <div className=" shadow-xl border-4 ring-4 ring-black  rounded-3xl flex flex-col gap-6 p-6">
         <div className="">
-          <h2 className="title text-orange  font-extrabold text-3xl">
+          <h2 className="title text-black  font-extrabold text-3xl">
             Sign in to your account{" "}
           </h2>
+          {message && (
+            <h3 className="text-red-orange text-xl w-fit mx-auto py-3">
+              {message}
+            </h3>
+          )}
         </div>
         <form>
           <div className="flex flex-col w-full gap-4 ">
-            <div className="bg-white pb-1 w-full rounded-3xl h-12 border-2 focus:ring-2 ring-orange flex flex-col justify-center items-center">
+            <div className="bg-white pb-1 w-full rounded-3xl h-12 border-2  flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="text"
@@ -30,7 +40,7 @@ export default function Login() {
                 onChange={handleChange}
               />
             </div>
-            <div className="bg-white pb-1 w-full rounded-3xl h-12 border-2 focus:ring-2 ring-orange flex flex-col justify-center items-center">
+            <div className="bg-white pb-1 w-full rounded-3xl h-12 border-2 flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="password"
@@ -49,7 +59,7 @@ export default function Login() {
               </button>
               <span className=" text-opacity-40 text-black">
                 Don&apos;t have an account{" "}
-                <Link to="/signup" className="text-orange">
+                <Link to="/signup" className="text-black">
                   Create an account
                 </Link>
               </span>

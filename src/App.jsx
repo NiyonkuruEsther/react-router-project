@@ -21,14 +21,15 @@ import HostVanDetails, {
 import HostVanList from "./pages/hosts/HostVanList";
 import VanDetail from "./pages/hosts/VanDetail";
 import Error from "./components/ui/Error";
-import Login from "./pages/Login";
+import Login, { loader as loginLoader } from "./pages/Login";
+import { requireAuth } from "./utils/util";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<Error />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<Login />} loader={loginLoader} />
 
       <Route path="vans" element={<Vans />} loader={vansLoader} />
       <Route
@@ -38,30 +39,22 @@ const router = createBrowserRouter(
       />
       <Route path="host" element={<HostLayout />}>
         <Route
-          loader={async () => {
-            return null;
-          }}
+          loader={async () => await requireAuth()}
           index
           element={<DashBoard />}
         />
         <Route
-          loader={async () => {
-            return null;
-          }}
+          loader={async () => await requireAuth()}
           path="income"
           element={<Income />}
         />
         <Route
-          loader={async () => {
-            return null;
-          }}
+          loader={async () => await requireAuth()}
           path="reviews"
           element={<Reviews />}
         />
         <Route
-          loader={async () => {
-            return null;
-          }}
+          loader={async () => await requireAuth()}
           path="vans"
           element={<HostVanList />}
         />
