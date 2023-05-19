@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import { getVans } from "../../utils/api";
 
-export function loader() {
-  return getVans();
+export function loader({ params }) {
+  return getVans(params.id);
 }
 
 const Vans = () => {
