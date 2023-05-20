@@ -1,12 +1,19 @@
-// import { LoginOutlined } from "@mui/icons-material";
 import { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData, useNavigate } from "react-router-dom";
 import { loginUser } from "../utils/api";
 
 export function loader({ request }) {
   return new URL(request.url).searchParams.get("message");
 }
 
+export async function action({ request }) {
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
+  console.log(email, password);
+
+  return null;
+}
 export default function Login() {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
@@ -15,13 +22,16 @@ export default function Login() {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState(null);
   const message = useLoaderData();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
     setStatus("submitting");
     setError(null);
     loginUser(loginFormData)
-      .then((data) => console.log(data))
+      .then((data) => {
+        navigate("/host", { replace: true });
+      })
       .catch((err) => setError(err))
       .finally(() => setStatus("idle"));
   }
@@ -46,13 +56,13 @@ export default function Login() {
             </h3>
           )}
         </div>
-        <form onSubmit={handleSubmit}>
+        <Form method="post">
           <div className="flex flex-col w-full gap-4 ">
             <div className="bg-white pb-1 w-full rounded-3xl h-12 border-2  flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="text"
-                name="identifier"
+                name="email"
                 placeholder="Your email address"
                 onChange={handleChange}
               />
@@ -82,7 +92,7 @@ export default function Login() {
               </span>
             </div>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );
