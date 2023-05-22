@@ -29,7 +29,7 @@ import { requireAuth } from "./utils/util";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />} errorElement={<Error />}>
+    <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route
@@ -47,9 +47,9 @@ const router = createBrowserRouter(
       />
       <Route path="host" element={<HostLayout />}>
         <Route
-          loader={async () => await requireAuth()}
           index
           element={<DashBoard />}
+          loader={async () => await requireAuth()}
         />
         <Route
           loader={async () => await requireAuth()}

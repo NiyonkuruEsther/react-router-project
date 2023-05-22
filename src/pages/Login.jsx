@@ -3,8 +3,9 @@ import {
   Form,
   Link,
   redirect,
+  useActionData,
   useLoaderData,
-  useNavigate,
+  useNavigation,
 } from "react-router-dom";
 import { loginUser } from "../utils/api";
 
@@ -16,9 +17,13 @@ export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const data = await loginUser({ email, password });
-  localStorage.setItem("loggedin", true);
-  return redirect("/host");
+  try {
+    const data = await loginUser({ email, password });
+    localStorage.setItem("loggedin", true);
+    return redirect("/host");
+  } catch (err) {
+    return err.message;
+  }
 }
 
 export default function Login() {
@@ -27,21 +32,20 @@ export default function Login() {
     password: "",
   });
   const [status, setStatus] = useState("idle");
-  const [error, setError] = useState(null);
+  const errorMessage = useActionData();
   const message = useLoaderData();
-  const navigate = useNavigate();
+  const navigation = useNavigation();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setStatus("submitting");
-    setError(null);
-    loginUser(loginFormData)
-      .then((data) => {
-        navigate("/host", { replace: true });
-      })
-      .catch((err) => setError(err))
-      .finally(() => setStatus("idle"));
-  }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   setStatus("submitting");
+  //   loginUser(loginFormData)
+  //     .then((data) => {
+  //       navigate("/host", { replace: true });
+  //     })
+  //     .finally(() => setStatus("idle"));
+  // }
+
   const handleChange = (e) => {
     setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value });
   };
@@ -57,9 +61,9 @@ export default function Login() {
               {message}
             </h3>
           )}
-          {error && (
+          {errorMessage && (
             <h3 className="text-red-orange text-xl w-fit mx-auto py-3">
-              {error.message}
+              {errorMessage}
             </h3>
           )}
         </div>
@@ -83,14 +87,14 @@ export default function Login() {
                 onChange={handleChange}
               />
             </div>
+            <button
+              disabled={navigation.state === "submitting"}
+              className="submit text-lg px-4 font-bold  text-white  w-full flex justify-center p-2 rounded-full items-center gap-4 bg-orange "
+              type="submit"
+            >
+              {status === "submitting" ? "Logging in..." : "Log in"}
+            </button>
             <div className="place-self-start gap-5 flex flex-col">
-              <button
-                disabled={status === "submitting"}
-                className="submit text-lg px-4 font-bold  text-white w-fit flex justify-center p-2 rounded-full items-center gap-4 bg-orange "
-                type="submit"
-              >
-                {status === "submitting" ? "Logging in..." : "Log in"}
-              </button>
               <span className=" text-opacity-40 text-black">
                 Don&apos;t have an account{" "}
                 <Link to="/signup" className="text-black">
