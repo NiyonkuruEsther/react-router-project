@@ -22,7 +22,7 @@ export default function VanDetails() {
       {van ? (
         <div className="p-8 flex flex-col gap-10">
           <Link
-            to={"/"}
+            to={"/vans"}
             className="underline underline-offset-1 flex items-center gap-1 "
           >
             <FaArrowLeft /> Back to all vans
