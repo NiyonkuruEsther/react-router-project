@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
+import { useLocation, useLoaderData } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getVans } from "../../utils/api";
 
-export default function VanDetails() {
-  const params = useParams();
-  const [van, setVan] = useState(null);
+export function loader({ params }) {
+  return getVans(params.id);
+}
 
-  useEffect(() => {
-    fetch(`/api/vans/${params.id}`)
-      .then((res) => res.json())
-      .then((data) => setVan(data.vans));
-  }, [params.id]);
-
+export default function VanDetail() {
+  const location = useLocation();
+  const van = useLoaderData();
+  const search = location.state?.search || "";
+  const type = location.state?.type || "all";
+  console.log(location.state);
   return (
-    <div className="max-w-3xl mx-auto bg-light-cream">
-      <Navbar />
-
+    <div>
       {van ? (
         <div className="p-8 flex flex-col gap-10">
           <Link
-            to={"/vans"}
+            to={`..${search}`}
+            relative="path"
             className="underline underline-offset-1 flex items-center gap-1 "
           >
-            <FaArrowLeft /> Back to all vans
+            <FaArrowLeft />
+            Back to {type} vans
           </Link>
           <img src={van.imageUrl} className="rounded-lg" />
           <div className="flex flex-col gap-4">
@@ -33,7 +31,7 @@ export default function VanDetails() {
               className={`self-start py-2 px-4 text-md rounded-md ${van.type} font-medium text-cream`}
             >
               {van.type.charAt(0).toUpperCase() + van.type.slice(1)}
-            </button>{" "}
+            </button>
             <h1 className="text-4xl font-bold ">{van.name}</h1>
             <p className="text-2xl">
               <span className="font-bold">${van.price}</span>/day
@@ -47,7 +45,6 @@ export default function VanDetails() {
       ) : (
         <h2 className="p-8 font-bold text-2xl">Loading...</h2>
       )}
-      <Footer />
     </div>
   );
 }
