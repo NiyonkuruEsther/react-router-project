@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { getHostVans } from "../../utils/api";
+import { requireAuth } from "../../utils/util";
 
+export async function loader({ params, request }) {
+  await requireAuth(request);
+  return getHostVans(params.id);
+}
 const HostVanDetails = () => {
-  const { id } = useParams();
-  const [van, setVan] = useState([]);
-
-  useEffect(() => {
-    fetch(`/api/host/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setVan(data.vans));
-  }, []);
+  const van = useLoaderData();
   return (
     <div className="px-8 flex flex-col">
       <Link

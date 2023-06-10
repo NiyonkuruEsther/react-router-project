@@ -1,3 +1,4 @@
+import { FaUser } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 function Navbar() {
@@ -32,6 +33,13 @@ function Navbar() {
           activeClassName="active"
         >
           Vans
+        </NavLink>
+        <NavLink
+          to="/login"
+          className="text-opacity-70 text-dark"
+          activeClassName="active"
+        >
+          <FaUser />
         </NavLink>
       </div>
     </div>
