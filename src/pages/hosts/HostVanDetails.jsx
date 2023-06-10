@@ -1,8 +1,10 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom";
 import { getHostVans } from "../../utils/api";
+import { requireAuth } from "../../utils/util";
 
-export async function loader({ params }) {
+export async function loader({ params, request }) {
+  await requireAuth(request);
   return getHostVans(params.id);
 }
 const HostVanDetails = () => {
