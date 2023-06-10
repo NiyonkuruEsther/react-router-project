@@ -21,7 +21,7 @@ export default function VanDetail() {
           {" "}
           <span className="font-semibold text-lg ">Description: </span>
           {van?.description?.charAt(0).toUpperCase() +
-            van?.description?.slice(1)}{" "}
+            van?.description?.slice(1)}
         </p>
       </div>
       <div className="flex gap-2">
