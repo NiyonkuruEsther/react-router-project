@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rugged {
+    background-color: #115e59;
+
+}
+
+.simple {
+    background-color: #e17654;
+
+}
+
+.luxury {
+    background-color: #161616;
+
+}
+
+.active {
+
+    color: black;
+    text-decoration: underline;
+}
