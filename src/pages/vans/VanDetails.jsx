@@ -1,27 +1,29 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useLoaderData } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getVans } from "../../utils/api";
 
-export default function VanDetails() {
-  const params = useParams();
-  const [van, setVan] = useState(null);
+export function loader({ params }) {
+  return getVans(params.id);
+}
 
-  useEffect(() => {
-    fetch(`/api/vans/${params.id}`)
-      .then((res) => res.json())
-      .then((data) => setVan(data.vans));
-  }, [params.id]);
-
+export default function VanDetail() {
+  const location = useLocation();
+  const van = useLoaderData();
+  const search = location.state?.search || "";
+  const type = location.state?.type || "all";
+  console.log(location.state);
   return (
     <div>
       {van ? (
         <div className="p-8 flex flex-col gap-10">
           <Link
-            to={"/"}
+            to={`..${search}`}
+            relative="path"
             className="underline underline-offset-1 flex items-center gap-1 "
           >
-            <FaArrowLeft /> Back to all vans
+            <FaArrowLeft />
+            Back to {type} vans
           </Link>
           <img src={van.imageUrl} className="rounded-lg" />
           <div className="flex flex-col gap-4">
